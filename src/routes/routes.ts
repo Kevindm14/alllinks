@@ -1,4 +1,5 @@
 import {lazy, LazyExoticComponent} from "react";
+import {Login, SignUp} from "../pages";
 
 type JsxElement = () => JSX.Element;
 
@@ -7,15 +8,24 @@ interface Route {
 	path: string;
 	name: string;
 	Component: LazyExoticComponent<JsxElement> | JsxElement;
+	protectedRoute: boolean;
 }
 
-const dashboardLazy = lazy(() => import('../pages/dashboard/Dashboard'));
+const bioLazy = lazy(() => import('../pages/dashboard/Bio/Bio'));
 
 export const routes: Route[] = [
 	{
-		to: '/dashboard',
-		path: '/dashboard',
-		name: 'Dashboard',
-		Component: dashboardLazy,
-	}
+		to: '/',
+		path: '/',
+		name: 'My Links',
+		Component: bioLazy,
+		protectedRoute: true,
+	},
+	{
+		to: '/bio',
+		path: '/bio',
+		name: 'My Links',
+		Component: bioLazy,
+		protectedRoute: true,
+	},
 ];

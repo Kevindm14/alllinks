@@ -1,10 +1,11 @@
-import {Navigate, Outlet} from "react-router-dom";
-import {useAuthContext} from "../context/authContext.tsx";
+import {Navigate} from "react-router-dom";
+import {useAuth} from "../context/authContext.tsx";
 
-export const PrivateRoute = () => {
-	const { user } = useAuthContext();
+export const PrivateRoute = ({ children }) => {
+	const { loading, session } = useAuth();
 
-	return (
-		user ? <Outlet /> : <Navigate to="/login" />
-	)
+	if(loading) return <h1>Loading...</h1>
+	if(!session) return <Navigate to="/login" />
+
+	return children
 }

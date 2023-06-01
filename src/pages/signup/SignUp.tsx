@@ -1,28 +1,32 @@
 import GoogleIcon from "../../assets/social_icons/google.svg";
 import TwitterIcon from "../../assets/social_icons/twitter_bird.svg";
 import FacebookIcon from "../../assets/social_icons/facebook.svg";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {FormEvent, useRef} from "react";
+import {supabase} from "../../services/supabase.ts";
 
 export const SignUp = () => {
+	const navigate = useNavigate()
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 
 	const handleSubmit = async (event: FormEvent) => {
 		event.preventDefault();
 
-		// await signInWithEmail(
-		// 	emailRef.current?.value as string,
-		// 	passwordRef.current?.value as string
-		// )
+		await supabase.auth.signUp({
+			email: emailRef.current?.value as string,
+			password: passwordRef.current?.value as string
+		})
+
+		navigate('/bio')
 	}
 
 	return (
-		<div className="h-screen md:flex justify-between">
-			<div className="bg-purple-300 w-1/2 flex flex-col text-center items-center mx justify-center space-y-8 h-full">
+		<div className="h-screen md:flex justify-between w-full">
+			<div className="bg-blue-700 w-1/2 flex flex-col text-center items-center mx justify-center space-y-8 h-full">
 				<h1 className="text-5xl font-extrabold text-white">Welcome Back!</h1>
 				<p className="text-white max-w-xs text-lg font-light">To keep connected with us please login with your personal info</p>
-				<NavLink to={"/login/"} className="border-2 hover:bg-white hover:text-purple-300 transition ease-in border-white text-white px-10 py-2 rounded-md">SIGN IN</NavLink>
+				<NavLink to={"/login/"} className="border-2 hover:bg-white hover:text-blue-700 transition ease-in border-white text-white px-10 py-2 rounded-md">SIGN IN</NavLink>
 			</div>
 			<div className="w-1/2 flex flex-col space-y-3 justify-center items-center">
 				<div className="flex flex-col justify-center w-[340px] text-center gap-5">
@@ -86,7 +90,7 @@ export const SignUp = () => {
 								</div>
 							</div>
 
-							<button type="submit" className="relative bg-purple-300 text-white py-2 rounded-md hover:bg-purple-950 transition ease-in outline-none">Sign Up</button>
+							<button type="submit" className="relative bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700 transition ease-in outline-none">Sign Up</button>
 						</div>
 					</form>
 				</div>

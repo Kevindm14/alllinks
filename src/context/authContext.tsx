@@ -1,91 +1,69 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, ReactElement, useContext, useEffect, useState} from "react";
 import {supabase} from "../services/supabase.ts";
+import { Session } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 
-type Props = {
-	children: string | JSX.Element | JSX.Element[]
+interface AuthProviderProps {
+	children: ReactElement
 }
 
-interface User {
-	avatar_url: string;
-	email: string;
-	id: string;
-	email_verified: boolean;
-	full_name: string;
-	iss: string;
-	name: string;
-	picture: string;
-	provider_id: string;
-	sub: string;
+interface AuthContextProps {
+	session?: Session;
+	signInWithGoogle?: () => Promise<unknown>;
+	signOut?: () => Promise<unknown>;
+	loading?: boolean;
+	auth?: boolean;
 }
 
-type AuthContextProps = {
-	user: User | undefined;
-	signInWithGoogle?: () => Promise<void>;
-	signOut?: () => Promise<void>;
-}
+export const AuthContext = createContext<AuthContextProps>({});
 
-const defaultState: AuthContextProps = {
-	user: undefined,
-}
-
-export const AuthContext = createContext<AuthContextProps>(defaultState);
-
-export const AuthContextProvider = ({ children }: Props) =>  {
+export const AuthContextProvider = ({ children }: AuthProviderProps) =>  {
+	const [auth, setAuth] = useState(false);
+	const [session, setSession] = useState<Session>({} as Session);
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
-	const [user, setUser] = useState<User>();
 
-	const signInWithGoogle = async () => {
-		const { error } = await supabase.auth.signInWithOAuth(
-			{ provider: 'google' }
-		)
-
-		if (error) {
-			console.log('Error: ', error)
-			return
-		}
-	}
-
+	const signInWithGoogle = async () => await supabase.auth.signInWithOAuth({ provider: 'google' })
 	const signOut = async () => {
-		const { error } = await supabase.auth.signOut()
-
-		if (error) console.log('Error: ', error)
-
-		navigate('/login');
+		await supabase.auth.signOut()
+		navigate('/login')
 	}
 
 	useEffect(() => {
 		const {data:authListener} = supabase.auth.onAuthStateChange(async (_, session)=> {
-			if(session == null) {
-				navigate('/login')
+			if(!session) {
+				setLoading(false);
+				setSession({} as Session);
+				setAuth(false);
 
-				return
+				return;
 			}
 
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			setUser(session?.user.user_metadata)
-
-			navigate('/dashboard')
+			setSession(session)
+			setLoading(false);
+			setAuth(true);
 		})
-		return ()=>{
+
+		return () => {
 			authListener.subscription;
 		}
 	},[]);
 
-	const valueToExport: AuthContextProps = {
-		user,
-		signInWithGoogle,
-		signOut,
-	}
-
 	return (
-		<AuthContext.Provider value={valueToExport}>
+		<AuthContext.Provider
+			value={{
+				session,
+				signInWithGoogle,
+				signOut,
+				loading,
+				auth
+			}}
+		>
 			{children}
 		</AuthContext.Provider>
 	);
 }
 
-export const useAuthContext = () => {
+export const useAuth = () => {
 	return useContext(AuthContext);
 }
