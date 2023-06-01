@@ -13,7 +13,10 @@ const App = () => {
             {auth && <SideBar />}
 
             <Routes>
-                <Route path="*" element={<>404 Not found</>} />
+                <Route
+                    path="*"
+                    element={<>404 Not found</>}
+                />
                 <Route
                     path="/login"
                     element={
@@ -30,19 +33,17 @@ const App = () => {
                         <SignUp />
                     }
                 />
-                {
-                    routes.map(({ path, Component}) => (
-                        <Route
-                            key={path}
-                            path={path}
-                            element={
-                                <PrivateRoute>
-                                    <Component />
-                                </PrivateRoute>
-                            }
-                        />
-                    ))
-                }
+                {routes.map(({ path, Component}) => (
+                    <Route
+                        key={path}
+                        path={path}
+                        element={
+                            <PrivateRoute>
+                                <Component />
+                            </PrivateRoute>
+                        }
+                    />
+                ))}
             </Routes>
         </div>
     )
