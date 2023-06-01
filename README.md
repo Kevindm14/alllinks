@@ -1,4 +1,4 @@
-# Alllinks App
+# LinkConnect App
 
 Share all your social networks in only one place!
 
