@@ -2,14 +2,14 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {routes} from "./routes/routes.ts";
 import {PrivateRoute} from "./routes/PrivateRoutes.tsx";
 import { Login, SignUp } from "./pages/index.ts";
-import { useAuth } from "./context/authContext.tsx";
-import { SideBar } from "./components/SideBar.tsx";
+import { useAuth } from "./context";
+import { SideBar } from "./components";
 
 const App = () => {
     const { auth } = useAuth();
 
     return (
-        <div className="w-full flex">
+        <div className="h-screen flex">
             {auth && <SideBar />}
 
             <Routes>

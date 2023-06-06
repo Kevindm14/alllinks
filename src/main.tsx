@@ -4,12 +4,16 @@ import './index.css'
 import {Suspense} from "react";
 import {BrowserRouter} from "react-router-dom";
 import {AuthContextProvider} from "./context/authContext.tsx";
+import {LinkContextProvider} from "./context/linksContext.tsx";
+import {Loading} from "./components";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<Suspense fallback={<div>Loading...</div>}>
+	<Suspense fallback={<Loading />}>
 		<BrowserRouter>
 			<AuthContextProvider>
-				<App />
+				<LinkContextProvider>
+					<App />
+				</LinkContextProvider>
 			</AuthContextProvider>
 		</BrowserRouter>
 	</Suspense>

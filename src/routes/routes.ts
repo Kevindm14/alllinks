@@ -1,5 +1,4 @@
 import {lazy, LazyExoticComponent} from "react";
-import {Login, SignUp} from "../pages";
 
 type JsxElement = () => JSX.Element;
 

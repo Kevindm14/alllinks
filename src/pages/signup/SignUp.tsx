@@ -1,9 +1,8 @@
-import GoogleIcon from "../../assets/social_icons/google.svg";
-import TwitterIcon from "../../assets/social_icons/twitter_bird.svg";
-import FacebookIcon from "../../assets/social_icons/facebook.svg";
 import {NavLink, useNavigate} from "react-router-dom";
 import {FormEvent, useRef} from "react";
 import {supabase} from "../../services/supabase.ts";
+import {BsGoogle} from "react-icons/bs";
+import {FaFacebookF, FaTwitter} from "react-icons/fa";
 
 export const SignUp = () => {
 	const navigate = useNavigate()
@@ -22,25 +21,25 @@ export const SignUp = () => {
 	}
 
 	return (
-		<div className="h-screen md:flex justify-between w-full">
-			<div className="bg-blue-700 w-1/2 flex flex-col text-center items-center mx justify-center space-y-8 h-full">
-				<h1 className="text-5xl font-extrabold text-white">Welcome Back!</h1>
-				<p className="text-white max-w-xs text-lg font-light">To keep connected with us please login with your personal info</p>
+		<div className="h-screen flex flex-col lg:flex-row justify-between w-full">
+			<div className="bg-blue-700 py-20 lg:w-1/2 flex flex-col text-center items-center mx justify-center space-y-8 h-full">
+				<h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white">Welcome Back!</h1>
+				<p className="text-white max-w-xs text-md md:text-lg font-light">To keep connected with us please login with your personal info</p>
 				<NavLink to={"/login/"} className="border-2 hover:bg-white hover:text-blue-700 transition ease-in border-white text-white px-10 py-2 rounded-md">SIGN IN</NavLink>
 			</div>
-			<div className="w-1/2 flex flex-col space-y-3 justify-center items-center">
+			<div className="lg:w-1/2 py-20 flex flex-col space-y-3 justify-center items-center">
 				<div className="flex flex-col justify-center w-[340px] text-center gap-5">
-					<h1 className="text-5xl font-extrabold mb-4">Create Account</h1>
-					<p className="font-light mb-4">Create your account on the Below</p>
+					<h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Create Account</h1>
+					<p className="font-light text-sm md:text-lg mb-4">Create your account on the Below</p>
 					<div className="flex gap-4 justify-center items-center mb-5">
 						<button>
-							<img src={GoogleIcon} alt="Google Login" className="border rounded-full border-gray w-10 p-1"/>
+							<BsGoogle size={25} />
 						</button>
 						<a href="#">
-							<img src={TwitterIcon} alt="Twitter Login" className="border rounded-full border-gray w-10 p-1"/>
+							<FaTwitter size={25}/>
 						</a>
 						<a href="#">
-							<img src={FacebookIcon} alt="Facebook Login" className="border rounded-full border-gray w-10 p-1"/>
+							<FaFacebookF size={25}/>
 						</a>
 					</div>
 					<div className="relative">
