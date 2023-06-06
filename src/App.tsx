@@ -9,7 +9,7 @@ const App = () => {
     const { auth } = useAuth();
 
     return (
-        <div className="h-screen flex">
+        <div className="h-screen flex flex-col lg:flex-row">
             {auth && <SideBar />}
 
             <Routes>

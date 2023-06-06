@@ -48,7 +48,7 @@ export const Bio = () => {
 	}
 
 	const updateLink = async () => {
-		const { data, error } = await supabase
+		const { error } = await supabase
 			.from('links')
 			.update({
 				url: 'New Url'
@@ -56,8 +56,6 @@ export const Bio = () => {
 			.eq('id', '1')
 
 		if (error) console.log(error)
-
-		console.log(data)
 	}
 
 	useEffect(() => {
@@ -68,14 +66,9 @@ export const Bio = () => {
 
 	return (
 		<div className="w-full bg-gray-50 md:px-16 xl:px-40">
-			<div className="bg-white shadow rounded-2xl px-4 py-10 mt-20 mx-4 md:mx-0 flex justify-between">
-				<div className="flex items-center gap-3">
-					<h1 className="font-bold text-md sm:text-xl">All Links</h1>
-					<div className="w-8 bg-blue-500 rounded-xl py-1 text-white text-center text-sm mr-10">{links.length}</div>
-				</div>
-
+			<div className="mx-5 mt-10 md:mx-0">
 				<button
-					className="bg-blue-500 text-white px-5 py-1 rounded-2xl min-w-fit hover:bg-blue-700 transition ease-in flex items-center gap-3"
+					className="bg-blue-500 text-white px-5 py-2 rounded-2xl w-full min-w-fit hover:bg-blue-700 transition ease-in flex justify-center items-center gap-3"
 					onClick={() => openModal('modal1')}
 				>
 					<svg
@@ -104,10 +97,10 @@ export const Bio = () => {
 				<Loading />
 				:
 				links.length > 0 ?
-				<div className="flex flex-col mt-12 mx-auto gap-5">
+				<div className="flex flex-col mt-5 mx-auto gap-5">
 					{
 						links.map(({ id, name, url }) => (
-							<div key={id} className="bg-white border shadow rounded-2xl mx-4 md:mx-0 px-4 py-6">
+							<div key={id} className="bg-white border shadow rounded-2xl mx-4 md:mx-0 px-8 py-6 md:px-16">
 								<div className="flex flex-col mb-2">
 									<h3 className="flex gap-3 mb-1 font-bold text-sm sm:text-lg">
 										{name}
