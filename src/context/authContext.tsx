@@ -2,6 +2,7 @@ import {createContext, ReactElement, useContext, useEffect, useState} from "reac
 import {supabase} from "../services/supabase.ts";
 import { Session } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
+import {env, envURL} from "../utils/constants.ts";
 
 interface AuthProviderProps {
 	children: ReactElement
@@ -23,7 +24,14 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) =>  {
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 
-	const signInWithGoogle = async () => await supabase.auth.signInWithOAuth({ provider: 'google' })
+	const signInWithGoogle = async () => {
+		await supabase.auth.signInWithOAuth({
+			provider: 'google',
+			options: {
+				redirectTo: env === 'development' ? 'http://localhost:5173/bio' : envURL + '/bio'
+			}
+		})
+	}
 	const signOut = async () => {
 		await supabase.auth.signOut()
 		navigate('/login')
