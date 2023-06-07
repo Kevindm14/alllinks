@@ -18,6 +18,14 @@ const App = () => {
                     element={<>404 Not found</>}
                 />
                 <Route
+                    path="/"
+                    element={
+                        auth ?
+                            <Navigate to="/bio" /> :
+                            <Login />
+                    }
+                />
+                <Route
                     path="/login"
                     element={
                         auth ?

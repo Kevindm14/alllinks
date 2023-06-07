@@ -21,6 +21,7 @@ export const Bio = () => {
 	const { session } = useAuth();
 	const { isModalOpen, openModal, closeModal } = useModal();
 	const [loading, setLoading] = useState(true)
+	const metadata = session?.user.user_metadata;
 
 	const getLinks = async () => {
 		const { data, error } = await supabase
@@ -65,7 +66,15 @@ export const Bio = () => {
 	}, []);
 
 	return (
-		<div className="w-full bg-gray-50 md:px-16 xl:px-40">
+		<div className="w-full bg-gray-100 md:px-40 h-screen xl:px-96">
+			<div className="bg-white mt-10 py-5 rounded-2xl shadow-sm mx-5 md:mx-0 px-8 md:px-16 flex gap-3">
+				<img src={metadata?.avatar_url} className="rounded-full border-4 border-blue-300 hover:border-blue-400 transition ease-in w-20" alt="avatar"/>
+
+				<div className="py-2 flex flex-col justify-around">
+					<h2 className="font-extrabold text-xl">{metadata?.full_name}</h2>
+					<a href="#" className="text-blue-500 hover:text-blue-700">Preview your Links</a>
+				</div>
+			</div>
 			<div className="mx-5 mt-10 md:mx-0">
 				<button
 					className="bg-blue-500 text-white px-5 py-2 rounded-2xl w-full min-w-fit hover:bg-blue-700 transition ease-in flex justify-center items-center gap-3"
@@ -100,7 +109,7 @@ export const Bio = () => {
 				<div className="flex flex-col mt-5 mx-auto gap-5">
 					{
 						links.map(({ id, name, url }) => (
-							<div key={id} className="bg-white border shadow rounded-2xl mx-4 md:mx-0 px-8 py-6 md:px-16">
+							<div key={id} className="bg-white shadow-sm rounded-2xl mx-4 md:mx-0 px-8 py-6 md:px-16">
 								<div className="flex flex-col mb-2">
 									<h3 className="flex gap-3 mb-1 font-bold text-sm sm:text-lg">
 										{name}
