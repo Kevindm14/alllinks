@@ -11,7 +11,7 @@ interface Route {
 }
 
 const bioLazy = lazy(() => import("@/pages/Bio/Bio"));
-const editProfileLazy = lazy(() => import("@/pages/profile/edit"));
+const editProfileLazy = lazy(() => import("@/pages/profile/Edit"));
 
 export const routes: Route[] = [
   {

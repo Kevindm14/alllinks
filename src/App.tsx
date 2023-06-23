@@ -10,49 +10,49 @@ const App = () => {
 
     return (
         <div className="h-screen flex flex-col lg:flex-row">
-            {auth && <SideBar />}
+					{auth && <SideBar />}
 
-            <Routes>
-							<Route
-								path="*"
-								element={<>404 Not found</>}
-							/>
-							<Route
-								path="/"
-								element={
-									auth ?
-										<Navigate to="/bio" /> :
-										<Login />
-								}
-							/>
-							<Route
-								path="/login"
-								element={
-									auth ?
+					<Routes>
+						<Route
+							path="*"
+							element={<>404 Not found</>}
+						/>
+						<Route
+							path="/"
+							element={
+								auth ?
 									<Navigate to="/bio" /> :
 									<Login />
-								}
-							/>
+							}
+						/>
+						<Route
+							path="/login"
+							element={
+								auth ?
+								<Navigate to="/bio" /> :
+								<Login />
+							}
+						/>
+						<Route
+							path="/signup"
+							element={
+								auth ?
+								<Navigate to="/bio" /> :
+								<SignUp />
+							}
+						/>
+						{routes.map(({ path, Component}) => (
 							<Route
-								path="/signup"
+								key={path}
+								path={path}
 								element={
-									auth ?
-									<Navigate to="/bio" /> :
-									<SignUp />
+									<PrivateRoute>
+										<Component />
+									</PrivateRoute>
 								}
 							/>
-							{routes.map(({ path, Component}) => (
-								<Route
-									key={path}
-									path={path}
-									element={
-										<PrivateRoute>
-											<Component />
-										</PrivateRoute>
-									}
-								/>
-							))}
-            </Routes>
+						))}
+					</Routes>
         </div>
     )
 }
