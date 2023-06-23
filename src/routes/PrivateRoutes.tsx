@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/context/index";
-import { Loading } from "@/components/index";
+import { Loading } from "@/components/ui/loading";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

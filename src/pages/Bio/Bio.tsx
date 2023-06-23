@@ -1,5 +1,4 @@
 import {
-  Loading,
   ModalLink,
   Toastify,
   PreviewUser,
@@ -13,6 +12,7 @@ import { supabase } from "@/services/supabase.ts";
 import { MODAL1 } from "@/utils/constants.ts";
 import { Link } from "@/utils/interfaces.ts";
 import Icons from "@/components/ui/Icons.tsx";
+import Loading from "@/components/ui/loading";
 
 export const Bio = () => {
   const [links, setLinks] = useState<Link[]>([]);

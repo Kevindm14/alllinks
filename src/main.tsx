@@ -5,7 +5,7 @@ import {Suspense} from "react";
 import {BrowserRouter} from "react-router-dom";
 import {AuthContextProvider} from "@/context/authContext.tsx";
 import {LinkContextProvider} from "@/context/linksContext.tsx";
-import {Loading} from "@/components/index.ts";
+import {Loading} from "@/components/ui/loading.tsx";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<Suspense fallback={<Loading />}>
